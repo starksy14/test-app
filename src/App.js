@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import RandomNameGenerator from './RandomNameGenerator';
+import AnotherComponent from './AnotherComponent';
 
-function App() {
+const App = () => {
+  const [generatedNames, setGeneratedNames] = useState([]);
+
+  const generateRandomNames = () => {
+    const firstNames = ['John', 'Emma', 'Michael', 'Sophia', 'James'];
+    const lastNames = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones'];
+
+    const names = Array.from({ length: 10 }, () => {
+      const randomFirstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+      const randomLastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+      return `${randomFirstName} ${randomLastName}`;
+    });
+
+    setGeneratedNames(names);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <RandomNameGenerator generateName={generateRandomNames} />
+      <AnotherComponent generatedNames={generatedNames} />
     </div>
   );
-}
+};
 
 export default App;
